@@ -1,19 +1,13 @@
 let Dijkstras = require('./dijkstras');
-let Graph = require('./graph')
+let Graph = require('./graph');
 let data = require('../static/cities');
+let helpers = require('./helpers');
 
 let graph = new Graph();
 
 let nodes = [];
 
-for(var i=0;i<data.deals.length;i++){
-   if(data.deals[i].departure && nodes.indexOf(data.deals[i].departure) === -1){
-      nodes.push(data.deals[i].departure);
-   }
-   if(data.deals[i].arrival && nodes.indexOf(data.deals[i].arrival) === -1){
-     nodes.push(data.deals[i].arrival);
-   }
-}
+nodes = nodes.concat(helpers.getUniqueNodes());
 
 for(var i=0;i<nodes.length;i++){
    graph.addNode(nodes[i]);
