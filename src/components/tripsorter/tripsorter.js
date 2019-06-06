@@ -36,7 +36,7 @@ const formTemplateString = `
 const routeTemplateString = `<div class="Tripsorter">
     <h1>Trip Sorter!</h1>
     {{#if routes.length}}
-    <h4>Available Routes</h4>
+    <h3>Available Routes</h3>
     {{else}}
     <h3>No routes available from origin to destination!</h3>
     {{/if}}
