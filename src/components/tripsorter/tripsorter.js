@@ -34,9 +34,23 @@ const formTemplateString = `
     </form>`;
 
 const routeTemplateString = `<div class="Tripsorter">
-    Routes will be displayed here!
-</div>
-`;
+    <h1>Trip Sorter!</h1>
+    {{#if routes.length}}
+    <h4>Available Routes</h4>
+    {{else}}
+    <h3>No routes available from origin to destination!</h3>
+    {{/if}}
+    <div class="Tripsorter__routes">
+        <ul>
+        {{#each routes}}
+            <li><span id="from">{{this.from}}</span><span id="details"><span id="cost">{{this.cost}}</span><span id="duration">{{this.duration}}</span><span id="transport">{{this.transport}}</span></span></span><span id="to">{{this.node}}</span>
+        {{/each}}
+        </ul>
+    </div>
+    <div class="Tripsorter__backButton">
+        <input id="back" type="submit" value="Back">
+    </div>
+    `;
 
 let _fetchAndPopulateRoutes = function(data){
     return fetch('http://localhost:3000/tripsorter',{ method: 'POST', headers:{ 'Content-Type':'application/json'}, body : JSON.stringify(data)})
@@ -49,6 +63,15 @@ let _fetchAndPopulateRoutes = function(data){
 }
 
 let _attachEventListeners = function(self){
+    if(self.state.routes){
+        self.querySelector('input#back').addEventListener('click', (e) => {
+            e.preventDefault();
+            let state = self.state;
+            state.routes = null;
+            self.state = state;
+        });
+        return;
+    }
     var f = onFormSubmit.bind(self);
     let form = self.querySelector('form');
     form.removeEventListener('submit', f)
@@ -65,8 +88,13 @@ let onFormSubmit = function(e){
     data['option'] = self.querySelector('input[name="options"]:checked').value;
     data['discount'] = self.querySelector('input[name="discount"]').checked;
     e.preventDefault();
+    if(!(data.fromVal && data.toVal)){
+        return;
+    }
     _fetchAndPopulateRoutes(data).then((routes) => {
-        self.state.routes = routes;
+        var state = self.state;
+        state.routes = routes;
+        self.state = state;
         console.log(routes);
     });
 }
@@ -79,13 +107,13 @@ export class TripSorter extends HTMLElement {
         this._state = {
             toList: [],
             fromList: [],
-            routes : []
+            routes : null
         }
         this.getFormList();
         Object.defineProperty(this, 'state', {
             set: (val) => {
                 this._state = val;
-                render();
+                this.render();
             },
             get: () => {
                 return this._state;
@@ -93,7 +121,6 @@ export class TripSorter extends HTMLElement {
         });
     }
 
-    
     connectedCallback(){
         this.render();
         this.visible = !!this.hasAttribute('visible');
@@ -112,18 +139,25 @@ export class TripSorter extends HTMLElement {
         fetch('http://localhost:3000/tripsorter/destinations').then(function(resp){
             return resp.json();
         }).then(function(data){
-            that.state.toList = data.toList;
-            that.state.fromList = data.fromList;
-            that.render();
+            var state = that.state;
+            state.toList = data.toList;
+            state.fromList = data.fromList;
+            that.state = state;
         });
     }
 
     render(){
-        var templateString = this.state.routes.length ? routeTemplateString : formTemplateString;
+        console.log('render');
+        var templateString = this.state.routes ? routeTemplateString : formTemplateString;
 
         this.innerHTML = '';
-        let compiled = Handlebars.compile(templateString),
-        html = compiled({fromList: this.state.fromList, toList:this.state.toList});
+        console.log(templateString);
+        let compiled = Handlebars.compile(templateString), html;
+        if(this.state.routes){
+            html = compiled({routes: this.state.routes});
+        } else {
+            html = compiled({fromList: this.state.fromList, toList:this.state.toList});
+        }
         template.innerHTML = html;
         this.appendChild(template.content.cloneNode(true));
         _attachEventListeners(this);

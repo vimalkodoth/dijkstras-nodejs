@@ -5,9 +5,11 @@
     h1{
         margin:0px 10px;
     }
+    &__from,&__to, &__options, &__discount, &__submit,&__backButton{
+        margin:20px 10px;
+    }
     &__from,&__to, &__options, &__discount{
         font-size:1.2em;
-        margin:20px 10px;
         select{
             font-size:1em;
             border: 1px solid #000;
@@ -17,19 +19,59 @@
             max-width:80%;
         }
     }
-    &__submit{
+    &__submit,&__backButton{
         input{
-            display: block;
+            display: inline-block;
             cursor:pointer;
             font-size:1.5em;
             border:1px solid #d01;
             background:transparent;
             border-radius:8px;
-            margin:0px auto;
-            text-align:center;
             width:100px;
 
         }
 
+    }
+    &__submit {
+        text-align:right;
+    }
+    &__backButton {
+        text-align:left;
+    }
+    &__routes{
+        ul{
+            list-style:none;
+            padding:0;
+            li{
+                span{
+                    display:block;
+                }
+                span#from,span#to{
+                    display: block;
+                    padding: 20px;
+                    background: gold;
+                    margin-bottom: 2px;
+                    text-align: center;
+                }
+                span#details{
+                    text-align:center;
+                }
+                span#cost:before, span#duration:before, span#transport:before{
+                    padding-right:5px;
+                }
+                span#cost:before{
+                    content:"COST:";
+                }
+                span#duration:before{
+                    content:"DURATION:";
+                }
+                span#transport:before{
+                    content:"TRANSPORT:"
+                }
+            }
+            li:nth-child(n+2) > span:first-child {
+                display:none !important;
+            }
+        }
     }
 }

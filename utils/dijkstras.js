@@ -54,13 +54,16 @@ class DijkstrasAlgorithm {
     //Below code is uncommented to trace the shortest path from node to endNode
         var currNod = endNode;
         var trace = [];
-        trace.push({from: costs[currNod].path.from, node:currNod, cost: costs[currNod].path.cost, duration:costs[currNod].duration, transport: costs[currNod].transport });
+        trace.push({from: costs[currNod].path.from, node:currNod, cost: costs[currNod].path.cost, duration:costs[currNod].path.duration, transport: costs[currNod].transport });
         while(currNod){
             currNod = costs[currNod].path.from
             var prevNod = costs[trace[0].from];
             if(costs[currNod] && costs[currNod].path && costs[currNod].path.from){
-                trace.unshift({from: costs[currNod].path.from, node: currNod, cost:  prevNod.path.cost, duration: prevNod.path.duration, route: prevNod.transport})
+                trace.unshift({from: costs[currNod].path.from, node: currNod, cost:  prevNod.path.cost, duration: prevNod.path.duration, transport: prevNod.transport})
             }
+        }
+        if(trace.length === 1){
+            trace = [];
         }
     return trace;
     }
