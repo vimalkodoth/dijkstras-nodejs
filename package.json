@@ -16,7 +16,8 @@
     "handlebars": "^4.1.2",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "webcomponents-lite": "^0.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

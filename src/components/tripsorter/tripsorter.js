@@ -72,13 +72,13 @@ let _attachEventListeners = function(self){
         });
         return;
     }
-    var f = onFormSubmit.bind(self);
+    var f = _onFormSubmit.bind(self);
     let form = self.querySelector('form');
-    form.removeEventListener('submit', f)
+    form.removeEventListener('submit', f);
     form.addEventListener('submit', f);
 }
 
-let onFormSubmit = function(e){
+let _onFormSubmit = function(e){
     var self = this,
     data = {},
     fromElm = self.querySelector('.Tripsorter__from select'),

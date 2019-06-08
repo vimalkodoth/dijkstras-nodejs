@@ -5,7 +5,7 @@ var pathfinder = require('../utils/pathfinder');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Dijkstras API - POST to /finder endpoint' });
+  res.render('index');
 });
 
 module.exports = router;
