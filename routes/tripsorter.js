@@ -8,12 +8,10 @@ var helpers = require('../utils/helpers')
 router.post('/', function(req, res, next) {
   let discount = true;
   if(!req.body.fromVal || !req.body.toVal || !req.body.toVal){
-    console.log(req.body);
     res.json({
       code:'Provide valid inputs'
     });
   } else {
-    console.log(req.body);
     let response = pathfinder.run(req.body.fromVal, req.body.toVal, req.body.option, req.body.discount);
     res.json(response);
   }
