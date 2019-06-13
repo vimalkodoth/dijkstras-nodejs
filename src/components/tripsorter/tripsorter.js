@@ -53,7 +53,7 @@ const routeTemplateString = `<div class="Tripsorter">
     `;
 
 let _fetchAndPopulateRoutes = function(data){
-    return fetch('http://localhost:3000/tripsorter',{ method: 'POST', headers:{ 'Content-Type':'application/json'}, body : JSON.stringify(data)})
+    return fetch('/tripsorter',{ method: 'POST', headers:{ 'Content-Type':'application/json'}, body : JSON.stringify(data)})
     .then((response) => {
         return response.json();
     })
@@ -136,7 +136,7 @@ export class TripSorter extends HTMLElement {
 
     getFormList(){
         var that = this;
-        fetch('http://localhost:3000/tripsorter/destinations').then(function(resp){
+        fetch('/tripsorter/destinations').then(function(resp){
             return resp.json();
         }).then(function(data){
             var state = that.state;
