@@ -1,0 +1,53 @@
+.Tripsorter {
+  font-size: 1em;
+  min-width: 320px;
+  max-width: 320px; }
+  .Tripsorter h1 {
+    margin: 0px 10px; }
+  .Tripsorter__from, .Tripsorter__to, .Tripsorter__options, .Tripsorter__discount, .Tripsorter__submit, .Tripsorter__backButton, .Tripsorter h3 {
+    margin: 20px 10px; }
+  .Tripsorter__from, .Tripsorter__to, .Tripsorter__options, .Tripsorter__discount {
+    font-size: 1.2em; }
+    .Tripsorter__from select, .Tripsorter__to select, .Tripsorter__options select, .Tripsorter__discount select {
+      font-size: 1em;
+      border: 1px solid #000;
+      background: transparent;
+      border-radius: 0;
+      min-width: 280px;
+      max-width: 80%; }
+  .Tripsorter__submit input, .Tripsorter__backButton input {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 1.5em;
+    border: 1px solid #d01;
+    background: transparent;
+    border-radius: 8px;
+    width: 100px; }
+  .Tripsorter__submit {
+    text-align: right; }
+  .Tripsorter__backButton {
+    text-align: left; }
+  .Tripsorter__routes ul {
+    list-style: none;
+    padding: 0; }
+    .Tripsorter__routes ul li span {
+      display: block; }
+    .Tripsorter__routes ul li span#from, .Tripsorter__routes ul li span#to {
+      display: block;
+      padding: 20px;
+      background: gold;
+      margin-bottom: 2px;
+      text-align: center; }
+    .Tripsorter__routes ul li span#details {
+      text-align: center; }
+    .Tripsorter__routes ul li span#cost:before, .Tripsorter__routes ul li span#duration:before, .Tripsorter__routes ul li span#transport:before {
+      padding-right: 5px; }
+    .Tripsorter__routes ul li span#cost:before {
+      content: "COST:"; }
+    .Tripsorter__routes ul li span#duration:before {
+      content: "DURATION:"; }
+    .Tripsorter__routes ul li span#transport:before {
+      content: "TRANSPORT:"; }
+    .Tripsorter__routes ul li:nth-child(n+2) > span:first-child {
+      display: none !important; }
+
